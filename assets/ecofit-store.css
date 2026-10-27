@@ -69,6 +69,8 @@
 .eco-add-to-cart{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:17px 21px;border:1px solid #8c1237;background:#8c1237;color:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s,transform .25s}
 .eco-add-to-cart svg{width:19px;height:19px}
 .eco-add-to-cart:hover{background:#6e0d2c;transform:translateY(-2px)}
+.eco-product-contact{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:12px;padding:10px 0;color:#8c1237;font-size:12px;font-weight:650;text-decoration:none}
+.eco-product-contact:hover{text-decoration:underline;text-underline-offset:4px}
 .eco-detail-link{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:16px;font-size:10px;color:#8c1237;text-decoration:none}
 .eco-detail-link:hover{text-decoration:underline;text-underline-offset:4px}
 .eco-product-facts{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:26px 0 0;padding:19px 0;border-top:1px solid #dccfd1;border-bottom:1px solid #dccfd1}
@@ -197,7 +199,11 @@ header.ecofit-header .eco-header-bag:hover{background:#f5e8eb}
 .eco-cart-foot>div{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px;font-size:12px}
 .eco-cart-foot strong{font-size:21px;letter-spacing:.1em;font-weight:500;color:#8c1237}
 .eco-cart-foot strong.eco-cart-price-status{font-size:12px;letter-spacing:0}
-.eco-cart-foot>button{display:flex;justify-content:space-between;align-items:center;width:100%;padding:17px 20px;border:0;background:#8c1237;color:#fff;font-size:11px;cursor:pointer}
+.eco-cart-contact,.eco-cart-foot>button{display:flex;justify-content:space-between;align-items:center;width:100%;padding:17px 20px;font-size:12px;font-weight:650}
+.eco-cart-contact{background:#8c1237;color:#fff;text-decoration:none}
+.eco-cart-contact:hover{background:#6e0d2c}
+.eco-cart-foot>button{margin-top:8px;border:1px solid #d4bdc5;background:transparent;color:#8c1237;cursor:pointer}
+.eco-cart-contact:focus-visible,.eco-product-contact:focus-visible{outline:2px solid #bc4a70;outline-offset:4px}
 .eco-cart-dialog [hidden]{display:none!important}
 .eco-image-dialog{width:min(1300px,96vw);height:94svh;overflow:hidden}
 .eco-image-dialog[open]{display:flex;flex-direction:column}

@@ -1,5 +1,6 @@
 import {initializeCinematic} from './ecofit-cinematic.js?v=pointer-detail-2';
 import {initializeFitPreview} from './ecofit-fit.js?v=fit-gender-1';
+import {initializeLookbook,initializeSignature} from './ecofit-lookbook.js?v=signature-lookbook-1';
 
 const clamp=(n,min=0,max=1)=>Math.max(min,Math.min(max,n));
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -57,6 +58,7 @@ function buildProduct(){
           <span class="eco-fit-trigger-arrow" aria-hidden="true">↗</span>
         </button>
         <button class="eco-add-to-cart" type="button" data-add-cart><span>Thêm vào giỏ hàng</span>${bagIcon}</button>
+        <a class="eco-product-contact" href="https://zalo.me/0868060624" target="_blank" rel="noopener noreferrer">Tư vấn size &amp; đặt áo qua Zalo <span aria-hidden="true">↗</span></a>
         <a class="eco-detail-link" href="/#ecofit-fabric-journey">Nhìn gần từng chi tiết <span>↓</span></a>
         <dl class="eco-product-facts"><div><dt>CHẤT LIỆU</dt><dd>Bamboo Prime</dd></div><div><dt>THIẾT KẾ</dt><dd>Cổ tim, tay ngắn</dd></div></dl>
         <details class="eco-product-disclosure"><summary>Về thiết kế chiếc áo <span>+</span></summary><p>Chiếc áo màu trắng gạo, hai sọc hồng nhạt chạy từ cổ xuống tay áo. Logo Ecofit ở ngực trước và gấu áo sau tạo điểm nhấn đồng điệu.</p></details>
@@ -127,7 +129,7 @@ function initializeCart(product,actions){
   cart.dialog.innerHTML=`<div class="eco-cart-head"><div><p class="eco-eyebrow">ECOFIT / YOUR SELECTION</p><h2>Giỏ hàng <span data-cart-heading-count>(${quantity})</span></h2></div><button type="button" data-close-cart aria-label="Đóng giỏ hàng">${closeIcon}</button></div>
     <div class="eco-cart-body"><div class="eco-cart-empty" ${quantity?'hidden':''}>${bagIcon}<h3>Một chút chất riêng.</h3><p>Giỏ hàng của bạn đang trống.</p><button type="button" data-shop-from-cart>Khám phá chiếc áo ↗</button></div>
       <div class="eco-cart-item" ${quantity?'':'hidden'}><div class="eco-cart-item-photo"><img src="${front}" width="1199" height="1312" alt="Áo Ecofit trắng gạo"></div><div class="eco-cart-item-info"><p>ECOFIT / BAMBOO PRIME</p><h3>Áo thể thao cổ tim</h3><span>Trắng gạo · Hồng nhạt</span><strong class="eco-cart-price-status">Giá đang cập nhật</strong><div class="eco-cart-item-controls"><div class="eco-quantity"><button type="button" data-cart-minus aria-label="Giảm số lượng áo">−</button><output data-cart-quantity aria-live="polite">${quantity}</output><button type="button" data-cart-plus aria-label="Tăng số lượng áo">+</button></div><button class="eco-cart-remove" type="button" data-cart-remove>Xóa</button></div></div></div></div>
-    <div class="eco-cart-foot" ${quantity?'':'hidden'}><div><span>Tạm tính</span><strong class="eco-cart-price-status">Chờ cập nhật</strong></div><button type="button" data-continue-shopping>Tiếp tục khám phá <span>↗</span></button></div>`;
+    <div class="eco-cart-foot" ${quantity?'':'hidden'}><div><span>Tạm tính</span><strong class="eco-cart-price-status">Chờ cập nhật</strong></div><a class="eco-cart-contact" href="https://zalo.me/0868060624" target="_blank" rel="noopener noreferrer">Nhắn Zalo để đặt áo <span aria-hidden="true">↗</span></a><button type="button" data-continue-shopping>Tiếp tục khám phá <span>↗</span></button></div>`;
   const empty=cart.dialog.querySelector('.eco-cart-empty'),item=cart.dialog.querySelector('.eco-cart-item'),foot=cart.dialog.querySelector('.eco-cart-foot');
   function render(save=true){
     if(save){try{localStorage.setItem(storageKey,JSON.stringify(quantity));}catch{}}
@@ -312,7 +314,7 @@ function mount(){
     if(!host||!actions||!document.querySelector('.ecofit-menu-trigger'))return false;
     const product=buildProduct();host.append(product);
     const openImages=initializeImageViewer();initializeCart(product,actions);initializeProduct(product,openImages);initializeFitPreview(product);
-    initializeScrollReveals(null,product);initializePageProgress();
+    initializeScrollReveals(null,product);initializeSignature(product);initializePageProgress();
     document.documentElement.classList.add('ecofit-store-ready');
     return true;
   }
@@ -321,6 +323,7 @@ function mount(){
   const details=buildDetails();
   if(!initializeCinematic(stories,details))return false;
   oldShop.remove();
+  initializeLookbook(stories);initializeSignature(stories);
   const openImages=initializeImageViewer();initializeCart(null,actions);initializeDetails(details,openImages);
   initializeScrollReveals(stories,null);initializePageProgress();
   stories.querySelectorAll('.ecofit-bamboo-image').forEach((figure,i)=>{
@@ -330,7 +333,7 @@ function mount(){
   document.documentElement.classList.add('ecofit-store-ready');
   const hash=decodeURIComponent(location.hash.slice(1));
   if(hash==='shop-products'){location.replace('/san-pham/ao-ecofit/');return true;}
-  if(['shop-products','ecofit-white-in-motion','ecofit-fabric-journey','ecofit-materials','ecofit-motion-journal','ecofit-stories'].includes(hash))requestAnimationFrame(()=>{
+  if(['shop-products','ecofit-white-in-motion','ecofit-fabric-journey','ecofit-materials','ecofit-lookbook','ecofit-motion-journal','ecofit-stories'].includes(hash))requestAnimationFrame(()=>{
     const target=document.getElementById(hash);
     if(!target)return;
     if(hash==='ecofit-white-in-motion')window.scrollTo({top:window.scrollY+target.getBoundingClientRect().top,behavior:'instant'});
