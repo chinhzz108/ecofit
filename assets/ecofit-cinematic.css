@@ -1,0 +1,145 @@
+@font-face { font-family:Ecofit Editorial; src:url('./fonts/ecofit-editorial-regular.woff2') format('woff2'); font-style:normal; font-weight:300 700; font-display:swap; }
+@font-face { font-family:Ecofit Editorial; src:url('./fonts/ecofit-editorial-italic.woff2') format('woff2'); font-style:italic; font-weight:300 700; font-display:swap; }
+@font-face { font-family:Ecofit Sans; src:url('./fonts/ecofit-sans.woff2') format('woff2'); font-style:normal; font-weight:200 800; font-display:swap; }
+.ecofit-cinematic { position:relative; margin:90px 0; color:#252026; scroll-margin-top:100px; font-family:Ecofit Sans,Arial,sans-serif; }
+.ecofit-cinematic-heading { max-width:1100px; padding:0 0 34px; }
+.ecofit-cinematic-eyebrow { display:flex; align-items:center; gap:15px; margin:0 0 22px; color:#a10c36; font-size:10px; font-weight:650; letter-spacing:.19em; }
+.ecofit-cinematic-eyebrow::before { content:''; display:block; width:40px; height:1px; background:currentColor; }
+.ecofit-cinematic-heading h2 { margin:0 0 20px; font-family:Ecofit Editorial,Georgia,serif; font-size:clamp(44px,6.1vw,96px); font-weight:400; line-height:1.02; letter-spacing:-.045em; text-wrap:balance; }
+.ecofit-cinematic-heading h2 em { color:#a10c36; font-weight:400; }
+.ecofit-cinematic-heading>p:last-child { max-width:580px; margin:0; color:#6b6468; font-size:15px; line-height:1.7; }
+.ecofit-cinematic-scroll { position:relative; height:calc(min(76svh,780px) + 90svh); }
+.ecofit-cinematic-sticky { position:sticky; top:82px; }
+.ecofit-cinematic-frame { position:relative; width:100%; height:min(76svh,780px); min-height:400px; overflow:hidden; background:#f3efe7; isolation:isolate; touch-action:pan-y; }
+.ecofit-cinematic-frame canvas { position:absolute; inset:0; z-index:1; display:block; width:100%; height:100%; }
+.ecofit-thread-artwork { position:absolute; inset:0; z-index:2; display:block; width:100%; height:100%; overflow:visible; pointer-events:none; }
+.ecofit-thread-halo,.ecofit-thread-outline,.ecofit-thread-stitches,.ecofit-thread-detail { fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.ecofit-thread-halo { stroke:#fffdf8; stroke-width:.75; opacity:.62; filter:drop-shadow(0 0 5px #fff); }
+.ecofit-thread-outline { stroke:#b54b65; stroke-width:.19; opacity:.88; filter:drop-shadow(0 0 3px #a10c3652); }
+.ecofit-thread-detail { stroke:#a10c36; stroke-width:.15; opacity:.72; }
+.ecofit-thread-needle { fill:#fffaf1; stroke:#a10c36; stroke-width:.08; opacity:0; filter:drop-shadow(0 0 2px #a10c36a0); }
+.ecofit-thread-finish { fill:#a10c36; stroke:#fffaf1; stroke-width:.07; opacity:0; transform:scale(.25); transform-box:fill-box; transform-origin:center; transition:opacity .35s ease,transform .55s cubic-bezier(.2,.8,.2,1); }
+.ecofit-cinematic[data-thread-complete="true"] .ecofit-thread-finish { opacity:1; transform:scale(1); }
+.ecofit-thread-step { color:#8c1237; font-size:10px; font-weight:650; letter-spacing:.09em; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.ecofit-cinematic-fallback { position:absolute; inset:0; overflow:hidden; background:radial-gradient(ellipse at 50% 38%,#fff,#eee9df); }
+.ecofit-cinematic-frame.is-ready .ecofit-cinematic-fallback { visibility:hidden; }
+.ecofit-cinematic-fallback>strong { position:absolute; top:22%; left:-2%; width:104%; text-align:center; font-family:Ecofit Editorial,Georgia,serif; font-style:italic; font-size:clamp(72px,15vw,220px); font-weight:500; line-height:1; letter-spacing:-.055em; color:#a10c36; }
+.ecofit-cinematic-shirt { position:absolute; top:8%; left:50%; height:78%; width:auto; transform:translateX(-50%) rotate(-4deg); filter:drop-shadow(0 18px 14px #6c5e4f26); }
+.ecofit-cinematic-fabric { position:absolute; left:-7%; bottom:-25%; width:115%; height:auto; }
+.ecofit-cinematic-poster { width:100%; height:100%; object-fit:cover; }
+.ecofit-cinematic[data-cinematic-scene="weave"] .ecofit-cinematic-poster { object-position:center 42%; }
+.ecofit-cinematic-mark { position:absolute; z-index:2; top:5%; left:4%; width:110px; height:58px; object-fit:contain; pointer-events:none; }
+.ecofit-cinematic-frame-label { position:absolute; z-index:2; top:6%; right:4%; color:#6c5359; font-size:10px; font-weight:650; letter-spacing:.13em; pointer-events:none; }
+.ecofit-cinematic-caption { position:absolute; left:4%; bottom:5%; z-index:2; pointer-events:none; }
+.ecofit-cinematic-caption>span { display:block; margin:0 0 9px; color:#7f2441; font-size:10px; font-weight:650; letter-spacing:.15em; }
+.ecofit-cinematic-caption>strong { display:block; color:#a10c36; font-family:Ecofit Editorial,Georgia,serif; font-size:clamp(24px,2.6vw,40px); font-weight:500; line-height:1.05; letter-spacing:-.035em; }
+.ecofit-cinematic-bottom { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:16px 0; }
+.ecofit-cinematic-bottom>a { color:#a10c36; font-size:14px; font-weight:650; text-decoration:underline; text-underline-offset:5px; }
+.ecofit-cinematic-cue { display:flex; align-items:center; gap:12px; color:#74676b; font-size:11px; letter-spacing:.05em; }
+.ecofit-cinematic-progress { display:block; width:100px; height:2px; background:#e5dedc; }
+.ecofit-cinematic-progress::after { display:block; width:100%; height:100%; background:#a10c36; content:""; transform:scaleX(var(--cin-progress,0)); transform-origin:left center; }
+.ecofit-cinematic-note { display:grid; grid-template-columns:minmax(220px,.65fr) minmax(0,1fr); align-items:center; gap:clamp(28px,6vw,100px); padding:34px 0 74px; }
+.ecofit-cinematic-note .ecofit-bamboo-interlude { margin:0; width:auto; }
+.ecofit-cinematic-note .ecofit-story-image { margin:0; }
+.ecofit-cinematic-note img { width:100%; height:auto; }
+.ecofit-cinematic-specs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; padding:36px 0 60px; border-top:1px solid #eadfe1; }
+.ecofit-cinematic-specs span { display:block; margin-bottom:15px; color:#aa6678; font-size:11px; }
+.ecofit-cinematic-specs h3 { margin:0 0 10px; color:#292329; font-size:24px; font-weight:700; letter-spacing:-.03em; }
+.ecofit-cinematic-specs p { max-width:260px; margin:0; color:#766c71; font-size:14px; line-height:1.7; }
+.ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-scroll { height:auto; }
+.ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-sticky { position:relative; top:auto; }
+.ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-frame { background:#f4f0e9; height:clamp(590px,48vw,760px); min-height:0; border:1px solid #e5ded5; }
+.ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-frame::after { position:absolute; z-index:1; inset:15px; border:1px solid #dfd3c47a; content:''; pointer-events:none; }
+.ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-mark { width:92px; top:30px; left:35px; }
+.ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-frame-label { top:42px; font-size:9px; letter-spacing:.2em; }
+.ecofit-journal-art { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.ecofit-journal-art>span { position:absolute; left:-2%; top:2%; white-space:nowrap; font-family:Ecofit Editorial,Georgia,serif; font-size:clamp(120px,15.5vw,250px); font-style:italic; font-weight:400; letter-spacing:-.065em; line-height:1; color:#a10c360c; transform:translateX(var(--journal-shift,0px)); }
+.ecofit-journal-art>i { position:absolute; width:75%; height:100%; bottom:-64%; left:-12%; border:1px solid #b8a1914a; border-radius:50%; transform:rotate(-14deg); }
+.ecofit-journal-deck { position:absolute; z-index:2; left:0; top:20%; width:63%; height:68%; perspective:1400px; transform-style:preserve-3d; clip-path:inset(-30% 0 -25% 0); transform:translate3d(var(--journal-pointer-x,0px),var(--journal-pointer-y,0px),0); cursor:grab; touch-action:pan-y; }
+.ecofit-journal-card { display:block; position:absolute; top:48%; left:48%; height:100%; width:auto; max-width:89%; aspect-ratio:var(--card-aspect); padding:0; margin:0; border:0; background:transparent; transform:translate(-50%,-50%); transform-style:preserve-3d; transform-origin:50% 65%; cursor:inherit; -webkit-tap-highlight-color:transparent; }
+.ecofit-cinematic-frame.is-gallery-moving .ecofit-journal-card { will-change:transform,opacity; }
+.ecofit-journal-card[data-journal-card="2"] { width:88%; height:auto; max-height:100%; }
+.ecofit-journal-paper { display:block; width:100%; height:100%; padding:6px; background:#fffefb; box-shadow:0 34px 50px -28px #4128326b,0 4px 14px #41283214; transition:box-shadow .35s,transform .35s; }
+.ecofit-journal-card img { width:100%; height:100%; display:block; object-fit:contain; user-select:none; pointer-events:none; }
+.ecofit-journal-card.is-current .ecofit-journal-paper { box-shadow:0 45px 55px -25px #4128326b,0 5px 20px #4128321a; }
+.ecofit-journal-card.is-current:hover .ecofit-journal-paper { transform:translateY(-5px); }
+.ecofit-journal-card:focus-visible { outline:2px solid #a10c36; outline-offset:6px; }
+.ecofit-cinematic-frame.is-dragging .ecofit-journal-deck { cursor:grabbing; }
+.ecofit-journal-editorial { position:absolute; z-index:3; right:5%; top:22%; width:30%; height:68%; pointer-events:none; }
+.ecofit-journal-number { position:absolute; top:-18%; right:-2%; font-family:Ecofit Editorial,Georgia,serif; font-size:clamp(90px,12vw,190px); font-weight:400; line-height:1; letter-spacing:-.08em; color:#a10c3612; }
+.ecofit-journal-copy { position:absolute; inset:0; opacity:0; visibility:hidden; transition:opacity .15s,visibility 0s; }
+.ecofit-journal-copy.is-current { opacity:1; visibility:visible; transition:opacity .45s .08s,visibility 0s; }
+.ecofit-journal-kicker { margin:0 0 25px; font-size:9px; font-weight:650; letter-spacing:.2em; color:#9b2949; }
+.ecofit-journal-copy h3 { margin:0; color:#31282c; font-family:Ecofit Editorial,Georgia,serif; font-size:clamp(40px,4.15vw,66px); line-height:.98; letter-spacing:-.045em; font-weight:400; transform:translateY(18px); transition:transform .75s cubic-bezier(.16,1,.3,1); }
+.ecofit-journal-copy h3 em { color:#a10c36; font-weight:400; }
+.ecofit-journal-copy.is-current h3 { transform:translateY(0); }
+.ecofit-journal-description { max-width:300px; margin:25px 0 0; font-size:12px; line-height:1.85; color:#776a6c; transform:translateY(10px); transition:transform .85s cubic-bezier(.16,1,.3,1); }
+.ecofit-journal-copy.is-current .ecofit-journal-description { transform:translateY(0); }
+.ecofit-journal-signature { position:absolute; left:0; bottom:0; color:#aa7580; font-family:Ecofit Editorial,Georgia,serif; font-size:24px; font-style:italic; transform:rotate(-6deg); }
+.ecofit-journal-edition { position:absolute; bottom:27px; left:35px; font-size:8px; letter-spacing:.18em; color:#9c8686; }
+.ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-frame:focus-visible { outline:2px solid #a10c36; outline-offset:5px; }
+.ecofit-cinematic[data-cinematic-scene="journal"]:not(.is-in-view) .ecofit-journal-paper { transform:translateY(45px) rotate(3deg); }
+.ecofit-cinematic.is-in-view .ecofit-journal-paper { transition:transform .95s cubic-bezier(.16,1,.3,1),box-shadow .35s; }
+.ecofit-cinematic-gallery-controls { display:flex; gap:10px; align-items:center; }
+.ecofit-cinematic-gallery-controls button { display:grid; width:44px; height:44px; place-items:center; border:1px solid #ded2d5; border-radius:50%; background:#fff; color:#31242b; font-size:18px; cursor:pointer; transition:background .2s,color .2s; }
+.ecofit-cinematic-gallery-controls button:hover { background:#a10c36; border-color:#a10c36; color:#fff; }
+.ecofit-cinematic-gallery-controls button[data-open-gallery] { width:auto; padding:0 18px; border-radius:22px; font-size:13px; }
+.ecofit-cinematic-gallery-controls button:focus-visible { outline:2px solid #a10c36; outline-offset:4px; }
+.ecofit-cinematic-gallery-count { min-width:36px; color:#74676b; font-size:12px; font-variant-numeric:tabular-nums; }
+.ecofit-cinematic-dialog { width:min(94vw,1300px); height:min(94svh,1000px); max-width:none; max-height:none; padding:46px 20px 20px; border:0; background:#faf8f5; }
+.ecofit-cinematic-dialog::backdrop { background:#25191ee6; }
+.ecofit-cinematic-dialog img { display:block; width:100%; height:100%; object-fit:contain; }
+.ecofit-cinematic-dialog button { position:absolute; top:10px; right:14px; padding:6px 12px; border:0; background:transparent; color:#33212b; font-size:14px; cursor:pointer; }
+@media(min-width:701px) and (max-width:980px) {
+  .ecofit-journal-deck { width:58%; }
+  .ecofit-journal-editorial { right:4%; width:34%; }
+  .ecofit-journal-copy h3 { font-size:clamp(30px,4vw,40px); }
+  .ecofit-journal-description { font-size:11px; }
+}
+@media(max-width:700px) {
+  .ecofit-cinematic { margin:48px 0; }
+  .ecofit-cinematic-heading { padding-bottom:22px; }
+  .ecofit-cinematic-heading h2 { font-size:clamp(42px,10.7vw,64px); }
+  .ecofit-cinematic-heading>p:last-child { font-size:14px; }
+  .ecofit-cinematic-scroll { height:calc(68svh + 55svh); }
+  .ecofit-cinematic-sticky { top:70px; }
+  .ecofit-cinematic-frame { height:68svh; min-height:350px; }
+  .ecofit-cinematic-mark { width:76px; height:42px; }
+  .ecofit-cinematic-caption>span { font-size:8px; }
+  .ecofit-cinematic-caption>strong { font-size:20px; }
+  .ecofit-cinematic-frame-label { font-size:8px; }
+  .ecofit-cinematic-note { grid-template-columns:1fr; gap:26px; padding:24px 0 44px; }
+  .ecofit-cinematic-specs { gap:16px; padding:30px 0; }
+  .ecofit-cinematic-specs h3 { font-size:18px; }
+  .ecofit-cinematic-specs p { font-size:12px; }
+  .ecofit-cinematic-bottom { align-items:flex-start; flex-wrap:wrap; gap:16px; }
+  .ecofit-cinematic-cue { font-size:10px; }
+  .ecofit-cinematic-progress { width:70px; }
+  .ecofit-cinematic-cue[data-scroll-cue]>span:nth-child(2) { display:none; }
+  .ecofit-cinematic-cue[data-scroll-cue] .ecofit-cinematic-progress { width:56px; }
+  .ecofit-thread-step { font-size:9px; }
+  .ecofit-cinematic-gallery-controls { gap:8px; }
+  .ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-frame { height:900px; }
+  .ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-mark { top:18px; left:24px; width:78px; }
+  .ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-frame-label { top:35px; right:24px; font-size:7px; }
+  .ecofit-journal-art>span { top:10%; left:-20%; font-size:140px; }
+  .ecofit-journal-deck { top:15%; left:0; width:100%; height:43%; }
+  .ecofit-journal-card { left:50%; height:97%; max-width:75%; }
+  .ecofit-journal-card[data-journal-card="2"] { width:85%; max-width:85%; }
+  .ecofit-journal-editorial { top:64%; left:9%; right:auto; width:82%; height:30%; }
+  .ecofit-journal-copy h3 { font-size:clamp(38px,11vw,48px); }
+  .ecofit-journal-copy h3 br { display:none; }
+  .ecofit-journal-copy h3 em { display:block; }
+  .ecofit-journal-kicker { margin-bottom:15px; font-size:8px; }
+  .ecofit-journal-description { font-size:11px; max-width:280px; margin-top:17px; }
+  .ecofit-journal-number { top:-18%; right:-1%; font-size:110px; }
+  .ecofit-journal-signature { bottom:-3%; font-size:22px; }
+  .ecofit-journal-edition { bottom:auto; top:60%; left:9%; font-size:7px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .ecofit-cinematic-scroll { height:auto; }
+  .ecofit-cinematic-sticky { position:relative; top:auto; }
+  .ecofit-cinematic-cue[data-scroll-cue] { display:none; }
+  .ecofit-thread-artwork { display:none; }
+  .ecofit-journal-paper,.ecofit-journal-copy,.ecofit-journal-copy h3,.ecofit-journal-description { transition:none!important; transform:none!important; }
+}

@@ -1,0 +1,7 @@
+/node_modules/
+/dist/
+/.vercel/
+/.fit-research/
+/artifacts/
+*.log
+.DS_Store
