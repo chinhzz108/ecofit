@@ -1,0 +1,71 @@
+/* User-supplied backgrounds. Keep photography and interaction layers above them. */
+/* New fabric / the opening material chapter. */
+.ecofit-stories {
+  background: #fff url('/images/02_be_mat_vai_moi.webp') center top / 100% auto no-repeat;
+}
+.ecofit-stories-intro { padding-block: clamp(25px, 5vw, 75px); }
+
+/* Thread and movement / preserve the existing scroll-driven shirt reveal. */
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-frame,
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-fallback {
+  background: #f8f5ef url('/images/07_soi_det_va_chuyen_dong.webp') center / cover no-repeat;
+}
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-fallback::before { content: none; }
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-fallback > strong { color: #8c1237; }
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-heading h2,
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-story,
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-caption > strong {
+  color: #38272e;
+  text-shadow: none;
+}
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-heading h2 em,
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-story h3 em,
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-story > p,
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-caption > span,
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-bottom > a { color: #8c1237; }
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-heading > p:last-child,
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-story > span { color: #67525b; }
+.ecofit-cinematic[data-cinematic-scene="stage"] .ecofit-cinematic-story h3 { text-shadow: none; }
+
+/* Bamboo Prime / leave the close-up photo and focus controls intact. */
+.eco-detail-editorial {
+  background: linear-gradient(#fffdf744, #fffdf744),
+    url('/images/03_tre_bamboo_prime.webp') center / cover no-repeat;
+}
+
+/* Energy lines / the journal's existing deck sits above this background. */
+.ecofit-cinematic[data-cinematic-scene="journal"] .ecofit-cinematic-frame {
+  background: #f8f5ef url('/images/09_duong_net_nang_luong.webp') center / cover no-repeat;
+}
+
+/* Recycled material / product page surround; breathable fabric / shirt stage. */
+.eco-product {
+  background: #faf7f2 url('/images/04_chai_nhua_tai_che_rpet.webp') center bottom / 100% auto no-repeat;
+}
+.eco-product-info {
+  background: linear-gradient(#fffdf7aa, #fffdf7aa),
+    url('/images/04_chai_nhua_tai_che_rpet.webp') center bottom / cover no-repeat;
+}
+.eco-product-stage,
+.eco-product-atmosphere {
+  background: #f8f5ef url('/images/10_do_thoang_khi_vai.webp') center / cover no-repeat;
+}
+.eco-product-atmosphere > svg { stroke: #8c123730; }
+.eco-product-atmosphere > i { background: #8c12371a; }
+.eco-photo-edition, .eco-photo-caption, .eco-photo-view { color: #8c1237; }
+.eco-product-stage .eco-image-expand { color: #8c1237; border-color: #8c12374d; background: #fffaf0cc; }
+
+/* Coffee fibres / contact area, with the decorative beans at the bottom edge. */
+.ecofit-footer,
+.eco-product-page-footer {
+  background: linear-gradient(to bottom, #faf7f2ee, #faf7f2d9 60%, #faf7f240),
+    url('/images/05_ca_phe_s_cafe.webp') center bottom / cover no-repeat;
+  padding-bottom: 100px;
+}
+
+@media (max-width: 760px) {
+  .ecofit-stories { background-size: auto 430px; }
+  .ecofit-stories-intro { padding-block: 35px; }
+  .eco-product { background-size: auto 800px; }
+  .ecofit-footer, .eco-product-page-footer { background-position: 35% bottom; }
+}
