@@ -3,8 +3,8 @@
     ['Khám phá', '/#eco-home'],
     ['Sản phẩm', '/san-pham/ao-ecofit/'],
     ['Chơi game', '/ecofit-game/'],
-    ['Chất liệu', '/#ecofit-materials'],
-    ['Về Ecofit', '/#ecofit-footer'],
+    ['Chất liệu', '/chat-lieu/'],
+    ['Về Ecofit', '/ve-ecofit/'],
   ];
 
   const makeLink = ([label, href], className = '') => {
@@ -12,6 +12,7 @@
     link.className = className;
     link.href = href;
     link.textContent = label;
+    if (href === location.pathname) link.setAttribute('aria-current', 'page');
     link.addEventListener('click', () => {
       document.querySelector('header')?.classList.remove('ecofit-menu-open');
       document.querySelector('.ecofit-menu-trigger')?.setAttribute('aria-expanded', 'false');
@@ -141,11 +142,14 @@
       menuTrigger.setAttribute('aria-label', 'Mở menu Ecofit');
       menuTrigger.setAttribute('aria-expanded', 'false');
       menuTrigger.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>';
+      controls.append(menuTrigger);
+    }
+    if (!menuTrigger.dataset.ecofitBound) {
+      menuTrigger.dataset.ecofitBound = 'true';
       menuTrigger.addEventListener('click', () => {
         const isOpen = header.classList.toggle('ecofit-menu-open');
         menuTrigger.setAttribute('aria-expanded', String(isOpen));
       });
-      controls.append(menuTrigger);
     }
 
     let mobileMenu = header.querySelector(':scope > .ecofit-mobile-menu');

@@ -1,0 +1,52 @@
+@font-face{font-family:EcofitSans;src:url('/assets/fonts/ecofit-sans.woff2') format('woff2');font-display:swap}
+@font-face{font-family:EcofitEditorial;src:url('/assets/fonts/ecofit-editorial-regular.woff2') format('woff2');font-display:swap}
+@font-face{font-family:EcofitEditorial;src:url('/assets/fonts/ecofit-editorial-italic.woff2') format('woff2');font-style:italic;font-display:swap}
+:root{font-family:EcofitSans,Arial,sans-serif;color:#38272e;background:#fbf9f7;font-synthesis:none}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:#fbf9f7;color:#38272e}
+body[data-ecofit-page="content"] header.ecofit-header:not(.ecofit-header-compact) .ecofit-logo-wrap{visibility:visible}
+body[data-ecofit-page="content"] header.ecofit-header{background:#fff!important;border-bottom-color:#eee4e4!important}
+.eco-content-page{padding-top:82px;overflow:hidden}
+.eco-content-wrap{width:min(1240px,calc(100% - 40px));margin:0 auto}
+.eco-content-hero{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);min-height:540px;align-items:center;gap:clamp(28px,6vw,96px);padding:clamp(52px,8vw,112px) 0 72px}
+.eco-content-kicker{margin:0 0 18px;color:#a10c36;font-size:11px;font-weight:750;letter-spacing:.18em;text-transform:uppercase}
+.eco-content-hero h1,.eco-content-section h2{margin:0;color:#38272e;font-family:EcofitEditorial,Georgia,serif;font-size:clamp(48px,7vw,94px);font-weight:400;letter-spacing:-.055em;line-height:.95}
+.eco-content-hero h1 em,.eco-content-section h2 em{color:#a10c36;font-style:italic}
+.eco-content-lead{max-width:480px;margin:28px 0 0;color:#71666b;font-size:16px;line-height:1.8}
+.eco-content-hero-visual{position:relative;min-height:390px;overflow:hidden;background:#efe7e1}
+.eco-content-hero-visual{margin:0}
+.eco-content-hero-visual img{display:block;width:100%;height:100%;min-height:390px;object-fit:cover}
+.eco-content-hero-visual::after{position:absolute;inset:0;background:linear-gradient(135deg,transparent 55%,#a10c3622);content:""}
+.eco-content-hero-label{position:absolute;right:20px;bottom:18px;z-index:1;color:#fff;font-size:10px;font-weight:700;letter-spacing:.14em;text-shadow:0 2px 12px #0008}
+.eco-content-section{padding:86px 0;border-top:1px solid #eadfe1}
+.eco-content-section--soft{background:#f3eee9}
+.eco-content-section h2{font-size:clamp(40px,5vw,72px);max-width:820px}
+.eco-content-section-intro{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:40px;margin-bottom:44px}
+.eco-content-section-intro p{max-width:590px;margin:9px 0 0;color:#71666b;font-size:15px;line-height:1.8}
+.eco-content-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.eco-content-card{background:#fff;border:1px solid #eadfe1}
+.eco-content-card img{display:block;width:100%;aspect-ratio:1.25;object-fit:cover}
+.eco-content-card-copy{padding:22px 22px 25px}
+.eco-content-card-copy span{color:#a10c36;font-size:10px;font-weight:750;letter-spacing:.15em}
+.eco-content-card-copy h3{margin:10px 0 8px;font-family:EcofitEditorial,Georgia,serif;font-size:28px;font-weight:400;letter-spacing:-.035em}
+.eco-content-card-copy p{margin:0;color:#71666b;font-size:13px;line-height:1.7}
+.eco-content-split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center;gap:clamp(30px,7vw,100px)}
+.eco-content-split img{display:block;width:100%;max-height:620px;object-fit:cover}
+.eco-content-split-copy p{max-width:500px;color:#71666b;font-size:15px;line-height:1.85}
+.eco-content-list{display:grid;gap:0;margin:30px 0 0;border-top:1px solid #dfd3d0}
+.eco-content-list div{display:grid;grid-template-columns:54px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid #dfd3d0}
+.eco-content-list b{color:#a10c36;font-size:12px;letter-spacing:.1em}
+.eco-content-list strong{font-size:14px;font-weight:650}
+.eco-content-list p{grid-column:2;margin:0;color:#71666b;font-size:13px;line-height:1.65}
+.eco-content-cta{display:inline-flex;align-items:center;gap:12px;margin-top:28px;padding:14px 20px;border-radius:999px;background:#a10c36;color:#fff;font-size:12px;font-weight:700;text-decoration:none}
+.eco-content-cta:hover{background:#82092b}
+.eco-content-footer{padding:28px 0 42px;border-top:1px solid #eadfe1;color:#71666b;font-size:12px}
+.eco-content-footer-row{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.eco-content-footer a{color:#8c1237;text-decoration:none}
+.eco-content-footer a:hover{text-decoration:underline;text-underline-offset:4px}
+.eco-content-contact{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:28px}
+.eco-content-contact a{color:#8c1237;font-size:14px;font-weight:650;text-decoration:underline;text-underline-offset:5px}
+header.ecofit-header a[aria-current="page"]{color:#a10c36}
+@media(max-width:820px){.eco-content-hero,.eco-content-section-intro,.eco-content-split{grid-template-columns:1fr}.eco-content-hero{padding-top:48px}.eco-content-hero-visual{min-height:300px}.eco-content-hero-visual img{min-height:300px}.eco-content-grid{grid-template-columns:1fr 1fr}.eco-content-section{padding:62px 0}}
+@media(max-width:560px){.eco-content-wrap{width:min(100% - 28px,1240px)}.eco-content-grid{grid-template-columns:1fr}.eco-content-footer-row{align-items:flex-start;flex-direction:column}.eco-content-hero h1{font-size:54px}.eco-content-section h2{font-size:46px}}

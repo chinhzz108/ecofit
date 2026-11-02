@@ -21,6 +21,8 @@ npm run deploy
 
 - `/`: Ecofit storefront.
 - `/san-pham/ao-ecofit/`: product and cart.
+- `/chat-lieu/`: Bamboo Prime material story.
+- `/ve-ecofit/`: Ecofit brand story and contact links.
 - `/ecofit-game/`: Xưởng vòng đời mới, with five stations: cân, lọc, kéo, dệt and may.
 - `/ecofit-game.html`: compatibility entry for the same workshop game.
 

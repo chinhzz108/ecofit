@@ -29,7 +29,7 @@ function buildProduct(){
   section.dataset.ecofitProductReady='true';section.dataset.ecofitMotionReady='true';
   section.setAttribute('aria-labelledby','eco-product-title');
   section.innerHTML=`<div class="eco-container">
-    <div class="eco-section-line"><span>SẢN PHẨM / BAMBOO PRIME</span><a href="/#ecofit-fabric-journey">Câu chuyện chất liệu ↑</a></div>
+    <div class="eco-section-line"><span>SẢN PHẨM / BAMBOO PRIME</span><a href="/chat-lieu/">Câu chuyện chất liệu ↗</a></div>
     <div class="eco-product-layout" id="eco-product-presentation">
     <div class="eco-product-gallery">
         <div class="eco-product-stage" data-view="0">
@@ -59,12 +59,12 @@ function buildProduct(){
         </button>
         <button class="eco-add-to-cart" type="button" data-add-cart><span>Thêm vào giỏ hàng</span>${bagIcon}</button>
         <a class="eco-product-contact" href="https://zalo.me/0868060624" target="_blank" rel="noopener noreferrer">Tư vấn size &amp; đặt áo qua Zalo <span aria-hidden="true">↗</span></a>
-        <a class="eco-detail-link" href="/#ecofit-fabric-journey">Nhìn gần từng chi tiết <span>↓</span></a>
+        <a class="eco-detail-link" href="/chat-lieu/#details">Nhìn gần từng chi tiết <span>↓</span></a>
         <dl class="eco-product-facts"><div><dt>CHẤT LIỆU</dt><dd>Bamboo Prime</dd></div><div><dt>THIẾT KẾ</dt><dd>Cổ tim, tay ngắn</dd></div></dl>
         <details class="eco-product-disclosure"><summary>Về thiết kế chiếc áo <span>+</span></summary><p>Chiếc áo màu trắng gạo, hai sọc hồng nhạt chạy từ cổ xuống tay áo. Logo Ecofit ở ngực trước và gấu áo sau tạo điểm nhấn đồng điệu.</p></details>
       </div>
     </div>
-    <div class="eco-product-footnote"><span>BAMBOO PRIME</span><span>CỔ TIM / TRẮNG GẠO / HỒNG NHẠT</span><a href="#ecofit-footer">Về Ecofit ↓</a></div>
+    <div class="eco-product-footnote"><span>BAMBOO PRIME</span><span>CỔ TIM / TRẮNG GẠO / HỒNG NHẠT</span><a href="/ve-ecofit/">Về Ecofit ↗</a></div>
   </div><div class="eco-mobile-buybar"><div><span>Áo Ecofit / Trắng gạo</span><strong>Chờ cập nhật</strong></div><button type="button" data-add-cart>Thêm vào giỏ ${bagIcon}</button></div>`;
   return section;
 }
