@@ -2,6 +2,7 @@
   const links = [
     ['Khám phá', '/#eco-home'],
     ['Sản phẩm', '/san-pham/ao-ecofit/'],
+    ['Chơi game', '/ecofit-game/'],
     ['Chất liệu', '/#ecofit-materials'],
     ['Về Ecofit', '/#ecofit-footer'],
   ];

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1b302b" />
+    <meta name="description" content="Tự tay hoàn thành một đơn hàng Ecofit: cân, phân loại, kéo sợi, dệt và may." />
+    <title>Ecofit — Chơi game xưởng vòng đời mới</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/ecofit-game/src/game/game.css" />
+  </head>
+  <body>
+    <main id="game-root">
+      <div id="workshop-background" aria-hidden="true"></div>
+      <header class="workshop-header">
+        <a class="brand-lockup" href="/" aria-label="Về web bán hàng Ecofit"><span class="brand-mark">E</span><span>ECOFIT<small>XƯỞNG VÒNG ĐỜI MỚI</small></span></a>
+        <div class="order-number">ĐƠN HÀNG <b>01</b><span>Chiếc áo đầu tiên của bạn</span></div>
+        <div class="header-actions"><a class="workshop-store-link" href="/">Về cửa hàng <span aria-hidden="true">↗</span></a><button id="sound-button" type="button" aria-pressed="false">Âm thanh: tắt</button><button id="pause-button" type="button" aria-label="Tạm dừng">Ⅱ</button></div>
+      </header>
+      <nav id="stage-rail" class="stage-rail" aria-label="Tiến trình đơn hàng"></nav>
+      <section class="workshop-layout">
+        <aside class="job-card">
+          <p id="stage-eyebrow" class="eyebrow"></p><h1 id="stage-title"></h1><p id="stage-objective" class="objective"></p>
+          <div class="job-separator"></div><span class="small-label">ĐÍCH CẦN ĐẠT</span><p id="stage-goal" class="stage-goal"></p>
+          <div id="stage-metrics" class="stage-metrics"></div>
+          <div class="material-note"><span>↻</span><p>Trong thực tế, thành phần từ bã cà phê được xử lý và phối với vật liệu phù hợp để tạo sợi pha. Các thao tác ở đây được giản lược cho trò chơi.</p></div>
+        </aside>
+        <section class="workbench" aria-label="Bàn thao tác">
+          <div class="bench-heading"><span id="bench-label"></span><span id="bench-status"></span></div>
+          <div id="playfield" class="playfield"></div>
+          <div class="bench-footer"><p id="feedback" role="status" aria-live="polite"></p><span id="input-hint"></span></div>
+        </section>
+      </section>
+      <footer class="workshop-footer"><span>LÀM CHẬM. LÀM CHẮC. LÀM THÀNH.</span><span id="session-quality">CHƯA CÓ CÔNG ĐOẠN HOÀN TẤT</span><button id="help-button" type="button">Cách chơi</button></footer>
+      <dialog id="intro-dialog" class="sheet">
+        <div class="sheet-kicker">ECOFIT / MỘT ĐƠN HÀNG THỦ CÔNG</div><h2>Một chiếc áo.<br /><em>Chính tay bạn làm.</em></h2>
+        <p>Cân đủ nguyên liệu, nhặt sạch tạp chất, giữ lực kéo sợi, đưa thoi và dẫn đường kim. Mỗi bàn cần một cách làm khác nhau.</p>
+        <div class="intro-steps"><span>01 <b>Cân</b></span><span>02 <b>Lọc</b></span><span>03 <b>Kéo</b></span><span>04 <b>Dệt</b></span><span>05 <b>May</b></span></div>
+        <fieldset class="mode-picker"><legend>Nhịp chơi</legend><label><input type="radio" name="mode" value="standard" checked /><span><b>Thử thách</b><small>Chính xác để đạt 3 sao</small></span></label><label><input type="radio" name="mode" value="relaxed" /><span><b>Thư giãn</b><small>Vùng chuẩn rộng, nhịp chậm hơn</small></span></label></fieldset>
+        <button id="start-game" class="primary-button" type="button">Nhận đơn hàng <span>→</span></button><small class="sheet-footnote">Chuột hoặc cảm ứng · Có điều khiển bàn phím · Esc tạm dừng</small>
+      </dialog>
+      <dialog id="result-dialog" class="sheet result-sheet"><p class="eyebrow" id="result-eyebrow"></p><h2 id="result-title"></h2><div id="result-stars" class="result-stars"></div><p id="result-copy"></p><div id="result-details"></div><div class="result-actions"><button id="retry-stage" class="secondary-button" type="button">Làm lại bàn này</button><button id="next-stage" class="primary-button" type="button">Qua bàn tiếp <span>→</span></button></div></dialog>
+      <dialog id="pause-dialog" class="sheet small-sheet"><p class="eyebrow">XƯỞNG ĐANG NGHỈ</p><h2>Tạm đặt tay xuống.</h2><p>Tiến độ được giữ trong lượt chơi này. Đồng hồ và máy đều đã dừng.</p><button id="resume-game" class="primary-button" type="button">Tiếp tục làm <span>→</span></button><button id="restart-run" class="text-button" type="button">Nhận lại đơn từ đầu</button></dialog>
+      <dialog id="help-dialog" class="sheet small-sheet"><p class="eyebrow">HƯỚNG DẪN BÀN HIỆN TẠI</p><h2 id="help-title"></h2><p id="help-copy"></p><button id="close-help" class="primary-button" type="button">Quay lại bàn <span>→</span></button></dialog>
+      <section id="finish-screen" class="finish-screen" hidden><div class="finish-copy"><p class="eyebrow">ĐƠN HÀNG ĐÃ HOÀN TẤT</p><h2>Từng đường sợi.<br /><em>Đều có tay bạn.</em></h2><div id="finish-stars" class="result-stars"></div><p id="finish-summary"></p><div id="finish-breakdown"></div><p id="personal-best" class="personal-best"></p><button id="restart-game" class="primary-button" type="button">Làm một đơn mới <span>↻</span></button></div><figure class="finish-product"><img src="/images/game/ecofit-shirt.webp" alt="Áo Ecofit trắng, viền hồng ở vai, mặt trước và mặt sau" /><figcaption>ECOFIT / THÀNH QUẢ CỦA BẠN</figcaption></figure></section>
+    </main>
+    <script type="module" src="/ecofit-game/src/game/main.js"></script>
+  </body>
+</html>
+

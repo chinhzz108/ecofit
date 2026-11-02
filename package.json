@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "preview": "vite preview",
+    "test:logic": "node --test tests/*.test.mjs",
+    "deploy": "npx --yes vercel --prod --yes"
   },
   "devDependencies": {
     "vite": "^8.3.4"

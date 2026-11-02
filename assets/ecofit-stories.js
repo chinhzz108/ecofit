@@ -374,6 +374,7 @@
         <nav aria-label="Liên kết Ecofit">
           <a href="/#eco-home">Khám phá</a>
           <a href="/san-pham/ao-ecofit/">Sản phẩm</a>
+          <a href="/ecofit-game/">Chơi game</a>
           <a href="/#ecofit-materials">Chất liệu</a>
         </nav>
         <div class="ecofit-footer-contact">
