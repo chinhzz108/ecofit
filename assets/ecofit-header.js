@@ -1,17 +1,26 @@
 (() => {
   const links = [
     ['Khám phá', '/#eco-home'],
-    ['Sản phẩm', '/san-pham/ao-ecofit/'],
-    ['Chơi game', '/ecofit-game/'],
+    ['Sản phẩm', '/shop/'],
+    ['Chơi game', '/ecofit-game/', '/images/ecofit-icon-game.png'],
+    ['Vòng quay', '/vong-quay/', '/images/ecofit-icon-wheel.png'],
     ['Chất liệu', '/chat-lieu/'],
     ['Về Ecofit', '/ve-ecofit/'],
   ];
 
-  const makeLink = ([label, href], className = '') => {
+  const makeLink = ([label, href, icon], className = '') => {
     const link = document.createElement('a');
     link.className = className;
     link.href = href;
-    link.textContent = label;
+    if (icon) {
+      const image = document.createElement('img');
+      image.className = 'ecofit-nav-icon';
+      image.src = icon;
+      image.alt = '';
+      image.setAttribute('aria-hidden', 'true');
+      link.append(image);
+    }
+    link.append(document.createTextNode(label));
     if (href === location.pathname) link.setAttribute('aria-current', 'page');
     link.addEventListener('click', () => {
       document.querySelector('header')?.classList.remove('ecofit-menu-open');
@@ -20,7 +29,20 @@
     return link;
   };
 
+  const decorateNavLink = (link) => {
+    const label = link.textContent.trim();
+    const item = links.find(([name]) => name === label);
+    if (!item?.[2] || link.querySelector('.ecofit-nav-icon')) return;
+    const image = document.createElement('img');
+    image.className = 'ecofit-nav-icon';
+    image.src = item[2];
+    image.alt = '';
+    image.setAttribute('aria-hidden', 'true');
+    link.prepend(image);
+  };
+
   function ensureSocialDock() {
+    if (document.body?.dataset.ecofitPage === 'game') return;
     if (!document.body || document.getElementById('ecofit-social-dock')) return;
     const dock = document.createElement('nav');
     dock.id = 'ecofit-social-dock';
@@ -95,6 +117,21 @@
       for (const item of links) nav.append(makeLink(item));
       row.insertBefore(nav, controls);
     }
+    const primaryNav = row.querySelector(':scope > .ecofit-header-nav');
+    for (const item of links) {
+      const [label, href] = item;
+      if (![...primaryNav.querySelectorAll(':scope > a')].some((link) => link.textContent.trim() === label)) {
+        const before = [...primaryNav.children].find((link) => link.textContent.trim() === 'Chất liệu');
+        primaryNav.insertBefore(makeLink(item), before || null);
+      }
+    }
+    for (const link of row.querySelectorAll('.ecofit-header-nav a')) {
+      decorateNavLink(link);
+      if (link.textContent.trim() !== 'Sản phẩm') continue;
+      link.href = '/shop/';
+      if (location.pathname === '/shop/') link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
 
     const desktopSearch = controls.querySelector('.relative button');
     const mobileSearch = controls.querySelector('button[aria-label="Search"]');
@@ -125,11 +162,11 @@
     oldMenu?.classList.add('ecofit-hide-control');
 
     let cta = controls.querySelector(':scope > .ecofit-header-cta');
-    const isProductPage = document.body?.dataset.ecofitPage === 'product';
+    const isProductPage = ['product','shop','cart','account','game'].includes(document.body?.dataset.ecofitPage);
     if (isProductPage) {
       cta?.remove();
     } else if (!cta) {
-      cta = makeLink(['Xem sản phẩm', '/san-pham/ao-ecofit/'], 'ecofit-header-cta');
+      cta = makeLink(['Xem sản phẩm', '/shop/'], 'ecofit-header-cta');
       if (cart) controls.insertBefore(cta, cart);
       else controls.append(cta);
     }

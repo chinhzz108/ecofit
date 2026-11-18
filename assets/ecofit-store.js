@@ -1,5 +1,7 @@
-import {initializeCinematic} from './ecofit-cinematic.js?v=pointer-detail-2';
-import {initializeFitPreview} from './ecofit-fit.js?v=fit-gender-1';
+import {initializeCommerce} from './ecofit-commerce.js?rev=account-1';
+import {catalog} from './ecofit-catalog.js?rev=account-1';
+import {initializeCinematic} from './ecofit-cinematic.js?v=chapter-break-1';
+import {initializeFitPreview} from './ecofit-fit.js?v=fit-studio-3';
 import {initializeLookbook,initializeSignature} from './ecofit-lookbook.js?v=signature-lookbook-1';
 
 const clamp=(n,min=0,max=1)=>Math.max(min,Math.min(max,n));
@@ -12,6 +14,7 @@ const productViews=[
   {src:'/images/ecofit-tee-front-back.webp',label:'Trước & sau',alt:'Mặt trước và mặt sau của cùng một mẫu áo Ecofit trắng gạo',width:1602,height:982},
   {src:'/images/ecofit-tee-runner.webp',label:'Trên người',alt:'Người mẫu nam mặc áo Ecofit cổ tim trắng gạo với hai sọc hồng nhạt khi chạy bộ, cho thấy chiếc áo trong chuyển động',width:1774,height:887,caption:'PHOM ÁO TRONG CHUYỂN ĐỘNG'}
 ];
+let activeProductViews=productViews;
 const album=[
   {file:'ecofit-collection.webp',title:'Một tinh thần Ecofit',tag:'01 / BRAND STORY',alt:'Bộ ảnh giới thiệu tinh thần thương hiệu Ecofit'},
   {file:'ecofit-athleisure.webp',title:'Nhịp sống, nhịp riêng',tag:'02 / ATHLEISURE',alt:'Bộ ảnh cảm hứng phong cách athleisure Ecofit'},
@@ -24,9 +27,25 @@ const closeIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const zoomIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M3 3l6 6m12-6-6 6M3 21l6-6m12 6-6-6"/></svg>';
 
 function buildProduct(){
+  const requestedId=new URLSearchParams(location.search).get('product')||'bamboo-prime';
+  const catalogProduct=catalog.find(item=>item.id===requestedId&&!item.draft)||catalog[0];
+  const isWhite=catalogProduct.id==='bamboo-prime';
+  const customModel=`/images/ecofit-fit-custom/${catalogProduct.id}-male-cd-00.webp`;
+  const views=isWhite?productViews:[
+    {src:catalogProduct.image,label:'Tổng thể',alt:catalogProduct.alt,width:1199,height:1312},
+    {src:catalogProduct.image,label:'Chi tiết',alt:`Chi tiết ${catalogProduct.name}`,width:1199,height:1312},
+    {src:customModel,label:'Trước & sau',alt:`${catalogProduct.name} trên mẫu thử`,width:316,height:623},
+    {src:customModel,label:'Trên người',alt:`${catalogProduct.name} trên người mẫu`,width:316,height:623,caption:'PHOM ÁO TRONG CHUYỂN ĐỘNG'}
+  ];
+  activeProductViews=views;
+  const priceText=typeof catalogProduct.price==='number'?new Intl.NumberFormat('vi-VN').format(catalogProduct.price)+' VNĐ':'Giá sắp được cập nhật';
+  const titleText=catalogProduct.id==='polo-navy'?'Navy.<br><em>Chất thể thao.</em>':catalogProduct.id==='polo-stripe'?'Sọc ngang.<br><em>Chất riêng.</em>':'Trắng gạo.<br><em>Chất riêng.</em>';
+  const subtitleText=catalogProduct.id==='polo-navy'?'Cổ polo. Ba sọc trắng. Điểm nhấn đỏ.':catalogProduct.id==='polo-stripe'?'Cổ polo. Sọc ngang. Logo Ecofit.':'Cổ tim. Tay ngắn. Hai sọc hồng nhạt.';
+  const materialText=isWhite?'Bamboo Prime':'Ecofit Active';
+  document.title=`${catalogProduct.name} | Ecofit`;
   const section=document.createElement('section');
   section.id='shop-products';section.className='eco-product';
-  section.dataset.ecofitProductReady='true';section.dataset.ecofitMotionReady='true';
+  section.dataset.ecofitProductReady='true';section.dataset.ecofitMotionReady='true';section.dataset.ecofitFitProduct=catalogProduct.id;
   section.setAttribute('aria-labelledby','eco-product-title');
   section.innerHTML=`<div class="eco-container">
     <div class="eco-section-line"><span>SẢN PHẨM / BAMBOO PRIME</span><a href="/chat-lieu/">Câu chuyện chất liệu ↗</a></div>
@@ -36,36 +55,36 @@ function buildProduct(){
           <div class="eco-product-atmosphere" aria-hidden="true"><svg viewBox="0 0 700 700" preserveAspectRatio="none"><path d="M-80 560C110 650 420 140 790 200"/><path d="M-80 576C110 666 420 156 790 216"/></svg><i></i></div>
           <span class="eco-photo-edition">ECOFIT STUDIO / 01</span>
           <button class="eco-image-expand" type="button" data-product-zoom aria-label="Phóng to ảnh sản phẩm">${zoomIcon}</button>
-        <div class="eco-product-image-space">${productViews.map((view,i)=>`<img class="eco-product-image eco-product-image--${i}${i===0?' is-active':''}" src="${view.src}" width="${view.width}" height="${view.height}" loading="lazy" decoding="async" alt="${view.alt}" aria-hidden="${i!==0}" draggable="false">`).join('')}</div>
-          <div class="eco-product-pin eco-product-pin--neck"><button type="button" data-pin="0" aria-expanded="false" aria-label="Chi tiết cổ tim">01</button><span>Cổ tim gọn, viền bo mềm.</span></div>
+        <div class="eco-product-image-space">${views.map((view,i)=>`<img class="eco-product-image eco-product-image--${i}${i===0?' is-active':''}" src="${view.src}" width="${view.width}" height="${view.height}" loading="lazy" decoding="async" alt="${view.alt}" aria-hidden="${i!==0}" draggable="false">`).join('')}</div>
+          ${isWhite?`<div class="eco-product-pin eco-product-pin--neck"><button type="button" data-pin="0" aria-expanded="false" aria-label="Chi tiết cổ tim">01</button><span>Cổ tim gọn, viền bo mềm.</span></div>
           <div class="eco-product-pin eco-product-pin--stripe"><button type="button" data-pin="1" aria-expanded="false" aria-label="Chi tiết hai sọc vai">02</button><span>Hai sọc hồng nhạt từ vai xuống tay.</span></div>
-          <div class="eco-product-pin eco-product-pin--logo"><button type="button" data-pin="2" aria-expanded="false" aria-label="Chi tiết logo Ecofit">03</button><span>Logo Ecofit hồng trên ngực áo.</span></div>
+          <div class="eco-product-pin eco-product-pin--logo"><button type="button" data-pin="2" aria-expanded="false" aria-label="Chi tiết logo Ecofit">03</button><span>Logo Ecofit hồng trên ngực áo.</span></div>`:''}
           <span class="eco-photo-caption">MỘT CHIẾC ÁO. MỘT CHẤT RIÊNG.</span>
           <span class="eco-photo-view" aria-live="polite">01 / TỔNG THỂ</span>
         </div>
-        <div class="eco-product-views" role="group" aria-label="Góc nhìn sản phẩm">${productViews.map((view,i)=>`<button type="button" data-product-view="${i}" aria-pressed="${i===0}"><span class="eco-view-preview"><img src="${view.src}" alt="" loading="lazy" decoding="async"></span><span>${view.label}</span><span class="eco-view-index">0${i+1}</span></button>`).join('')}</div>
+        <div class="eco-product-views" role="group" aria-label="Góc nhìn sản phẩm">${views.map((view,i)=>`<button type="button" data-product-view="${i}" aria-pressed="${i===0}"><span class="eco-view-preview"><img src="${view.src}" alt="" loading="lazy" decoding="async"></span><span>${view.label}</span><span class="eco-view-index">0${i+1}</span></button>`).join('')}</div>
       </div>
       <div class="eco-product-info">
-        <p class="eco-eyebrow">ECOFIT / BAMBOO PRIME</p>
-        <h2 id="eco-product-title">Trắng gạo.<br><em>Chất riêng.</em></h2>
-        <p class="eco-product-name">Áo thể thao Ecofit</p>
-        <p class="eco-product-subtitle">Cổ tim. Tay ngắn. Hai sọc hồng nhạt.</p>
-        <p class="eco-product-price" aria-label="Giá sản phẩm đang được cập nhật"><span>Giá sắp được cập nhật</span></p>
-        <p class="eco-product-color"><span aria-hidden="true"></span>Trắng gạo <i>/</i> Hồng nhạt</p>
+        <p class="eco-eyebrow">ECOFIT / ${materialText.toUpperCase()}</p>
+        <h2 id="eco-product-title">${titleText}</h2>
+        <p class="eco-product-name">${catalogProduct.name}</p>
+        <p class="eco-product-subtitle">${subtitleText}</p>
+        <p class="eco-product-price" aria-label="Giá sản phẩm"><span>${priceText}</span></p>
+        <p class="eco-product-color"><span aria-hidden="true"></span>${catalogProduct.color.replace(' / ',' <i>/</i> ')}</p>
         <button class="eco-fit-trigger" type="button" data-fit-open>
-          <span class="eco-fit-trigger-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 4.5 4.5 8l2 2 2-1.5 1 3.5-2 7h9l-2-7 1-3.5 2 1.5 2-2L17 4.5 14 6h-4L7 4.5Z"/><path d="M10 6c.3 1.5 3.7 1.5 4 0"/></svg></span>
-          <span class="eco-fit-trigger-copy"><strong>Thử áo theo vóc dáng</strong><small>Chọn mẫu nam/nữ, chiều cao, cân nặng và size</small></span>
+          <span class="eco-fit-trigger-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="m8 4-5 3 3 4 2-1v10h8V10l2 1 3-4-5-3a4 4 0 0 1-8 0Z"/></svg></span>
+          <span class="eco-fit-trigger-copy"><strong>Thử áo theo vóc dáng <span>360°</span></strong><small>Chọn mẫu nam/nữ, chiều cao, cân nặng và size</small></span>
           <span class="eco-fit-trigger-arrow" aria-hidden="true">↗</span>
         </button>
-        <button class="eco-add-to-cart" type="button" data-add-cart><span>Thêm vào giỏ hàng</span>${bagIcon}</button>
+        <button class="eco-add-to-cart" type="button" data-add-cart data-product-id="${catalogProduct.id}"><span>Thêm vào giỏ hàng</span>${bagIcon}</button>
         <a class="eco-product-contact" href="https://zalo.me/0868060624" target="_blank" rel="noopener noreferrer">Tư vấn size &amp; đặt áo qua Zalo <span aria-hidden="true">↗</span></a>
         <a class="eco-detail-link" href="/chat-lieu/#details">Nhìn gần từng chi tiết <span>↓</span></a>
-        <dl class="eco-product-facts"><div><dt>CHẤT LIỆU</dt><dd>Bamboo Prime</dd></div><div><dt>THIẾT KẾ</dt><dd>Cổ tim, tay ngắn</dd></div></dl>
+        <dl class="eco-product-facts"><div><dt>CHẤT LIỆU</dt><dd>${materialText}</dd></div><div><dt>THIẾT KẾ</dt><dd>${subtitleText}</dd></div></dl>
         <details class="eco-product-disclosure"><summary>Về thiết kế chiếc áo <span>+</span></summary><p>Chiếc áo màu trắng gạo, hai sọc hồng nhạt chạy từ cổ xuống tay áo. Logo Ecofit ở ngực trước và gấu áo sau tạo điểm nhấn đồng điệu.</p></details>
       </div>
     </div>
     <div class="eco-product-footnote"><span>BAMBOO PRIME</span><span>CỔ TIM / TRẮNG GẠO / HỒNG NHẠT</span><a href="/ve-ecofit/">Về Ecofit ↗</a></div>
-  </div><div class="eco-mobile-buybar"><div><span>Áo Ecofit / Trắng gạo</span><strong>Chờ cập nhật</strong></div><button type="button" data-add-cart>Thêm vào giỏ ${bagIcon}</button></div>`;
+  </div><div class="eco-mobile-buybar"><div><span>${catalogProduct.name}</span><strong>${priceText}</strong></div><button type="button" data-add-cart data-product-id="${catalogProduct.id}">Thêm vào giỏ ${bagIcon}</button></div>`;
   return section;
 }
 
@@ -121,33 +140,7 @@ function initializeImageViewer(){
 }
 
 function initializeCart(product,actions){
-  const storageKey='ecofit:cart:white-tee:v1';
-  const read=()=>{try{const value=JSON.parse(localStorage.getItem(storageKey)||'0');return Number.isFinite(value)?clamp(Math.floor(value),0,99):0;}catch{return 0;}};
-  let quantity=read();
-  const trigger=document.createElement('button');trigger.type='button';trigger.className='eco-header-bag';trigger.innerHTML=`${bagIcon}<span data-cart-badge>${quantity}</span>`;trigger.setAttribute('aria-label',`Giỏ hàng, ${quantity} sản phẩm`);actions.insertBefore(trigger,actions.querySelector('.ecofit-menu-trigger'));
-  const cart=modalShell('eco-cart-dialog','Giỏ hàng Ecofit');
-  cart.dialog.innerHTML=`<div class="eco-cart-head"><div><p class="eco-eyebrow">ECOFIT / YOUR SELECTION</p><h2>Giỏ hàng <span data-cart-heading-count>(${quantity})</span></h2></div><button type="button" data-close-cart aria-label="Đóng giỏ hàng">${closeIcon}</button></div>
-    <div class="eco-cart-body"><div class="eco-cart-empty" ${quantity?'hidden':''}>${bagIcon}<h3>Một chút chất riêng.</h3><p>Giỏ hàng của bạn đang trống.</p><button type="button" data-shop-from-cart>Khám phá chiếc áo ↗</button></div>
-      <div class="eco-cart-item" ${quantity?'':'hidden'}><div class="eco-cart-item-photo"><img src="${front}" width="1199" height="1312" alt="Áo Ecofit trắng gạo"></div><div class="eco-cart-item-info"><p>ECOFIT / BAMBOO PRIME</p><h3>Áo thể thao cổ tim</h3><span>Trắng gạo · Hồng nhạt</span><strong class="eco-cart-price-status">Giá đang cập nhật</strong><div class="eco-cart-item-controls"><div class="eco-quantity"><button type="button" data-cart-minus aria-label="Giảm số lượng áo">−</button><output data-cart-quantity aria-live="polite">${quantity}</output><button type="button" data-cart-plus aria-label="Tăng số lượng áo">+</button></div><button class="eco-cart-remove" type="button" data-cart-remove>Xóa</button></div></div></div></div>
-    <div class="eco-cart-foot" ${quantity?'':'hidden'}><div><span>Tạm tính</span><strong class="eco-cart-price-status">Chờ cập nhật</strong></div><a class="eco-cart-contact" href="https://zalo.me/0868060624" target="_blank" rel="noopener noreferrer">Nhắn Zalo để đặt áo <span aria-hidden="true">↗</span></a><button type="button" data-continue-shopping>Tiếp tục khám phá <span>↗</span></button></div>`;
-  const empty=cart.dialog.querySelector('.eco-cart-empty'),item=cart.dialog.querySelector('.eco-cart-item'),foot=cart.dialog.querySelector('.eco-cart-foot');
-  function render(save=true){
-    if(save){try{localStorage.setItem(storageKey,JSON.stringify(quantity));}catch{}}
-    trigger.querySelector('[data-cart-badge]').textContent=String(quantity);trigger.setAttribute('aria-label',`Giỏ hàng, ${quantity} sản phẩm`);
-    cart.dialog.querySelector('[data-cart-heading-count]').textContent=`(${quantity})`;cart.dialog.querySelector('[data-cart-quantity]').textContent=String(quantity);
-    cart.dialog.querySelector('[data-cart-plus]').disabled=quantity>=99;
-    empty.hidden=quantity>0;item.hidden=quantity===0;foot.hidden=quantity===0;
-  }
-  function shop(){cart.dialog.close();const productSection=document.getElementById('shop-products');if(productSection)productSection.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});else location.href='/san-pham/ao-ecofit/';}
-  trigger.addEventListener('click',()=>cart.open());
-  cart.dialog.querySelector('[data-close-cart]').addEventListener('click',()=>cart.dialog.close());
-  cart.dialog.querySelector('[data-cart-minus]').addEventListener('click',()=>{quantity=Math.max(0,quantity-1);render();if(!quantity)cart.dialog.querySelector('[data-shop-from-cart]').focus();});
-  cart.dialog.querySelector('[data-cart-plus]').addEventListener('click',()=>{quantity=Math.min(99,quantity+1);render();});
-  cart.dialog.querySelector('[data-cart-remove]').addEventListener('click',()=>{quantity=0;render();cart.dialog.querySelector('[data-shop-from-cart]').focus();});
-  cart.dialog.querySelector('[data-shop-from-cart]').addEventListener('click',shop);cart.dialog.querySelector('[data-continue-shopping]').addEventListener('click',shop);
-  product?.querySelectorAll('[data-add-cart]').forEach(button=>button.addEventListener('click',()=>{quantity=Math.min(99,quantity+1);render();cart.open();}));
-  window.addEventListener('storage',event=>{if(event.key===storageKey){quantity=read();render(false);}});
-  render(false);
+  initializeCommerce(actions);
 }
 
 function initializeProduct(product,openImages){
@@ -157,12 +150,12 @@ function initializeProduct(product,openImages){
     selected=index;stage.dataset.view=String(index);
     images.forEach((img,i)=>{img.classList.toggle('is-active',i===index);img.setAttribute('aria-hidden',String(i!==index));if(i===index)img.loading='eager';});
     buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
-    stage.querySelector('.eco-photo-view').textContent=`${String(index+1).padStart(2,'0')} / ${productViews[index].label.toLocaleUpperCase('vi')}`;
-    stage.querySelector('.eco-photo-caption').textContent=productViews[index].caption||'MỘT CHIẾC ÁO. MỘT CHẤT RIÊNG.';
+    stage.querySelector('.eco-photo-view').textContent=`${String(index+1).padStart(2,'0')} / ${activeProductViews[index].label.toLocaleUpperCase('vi')}`;
+    stage.querySelector('.eco-photo-caption').textContent=activeProductViews[index].caption||'MỘT CHIẾC ÁO. MỘT CHẤT RIÊNG.';
     stage.querySelectorAll('[data-pin]').forEach(button=>{button.setAttribute('aria-expanded','false');button.parentElement.classList.remove('is-open');});
   }
   buttons.forEach((button,i)=>button.addEventListener('click',()=>select(i)));
-  product.querySelector('[data-product-zoom]').addEventListener('click',()=>openImages(productViews,selected));
+  product.querySelector('[data-product-zoom]').addEventListener('click',()=>openImages(activeProductViews,selected));
   stage.querySelectorAll('[data-pin]').forEach(button=>button.addEventListener('click',()=>{
     const expanded=button.getAttribute('aria-expanded')==='true';
     stage.querySelectorAll('[data-pin]').forEach(other=>{other.setAttribute('aria-expanded','false');other.parentElement.classList.remove('is-open');});
@@ -309,6 +302,13 @@ function initializePageProgress(){
 
 function mount(){
   if(document.documentElement.classList.contains('ecofit-store-ready'))return true;
+  if(document.body.dataset.ecofitPage==='shop'){
+    const actions=document.querySelector('.ecofit-header-actions');
+    if(!actions||!document.querySelector('.ecofit-menu-trigger'))return false;
+    initializeCart(null,actions);initializePageProgress();
+    document.documentElement.classList.add('ecofit-store-ready');
+    return true;
+  }
   if(document.body.dataset.ecofitPage==='product'){
     const host=document.querySelector('[data-eco-product-root]'),actions=document.querySelector('.ecofit-header-actions');
     if(!host||!actions||!document.querySelector('.ecofit-menu-trigger'))return false;

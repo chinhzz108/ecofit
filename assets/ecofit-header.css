@@ -96,11 +96,15 @@ header.ecofit-header .ecofit-header-nav {
   justify-content: center !important;
   width: max-content !important;
   transform: translate(-50%, -50%);
-  gap: clamp(20px, 3vw, 46px) !important;
+  gap: clamp(18px, 2vw, 30px) !important;
   min-width: 0 !important;
 }
 
 header.ecofit-header .ecofit-header-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
   position: relative;
   padding: 10px 0;
   color: #393237;
@@ -109,6 +113,14 @@ header.ecofit-header .ecofit-header-nav a {
   letter-spacing: .005em;
   text-decoration: none;
   transition: color .18s ease;
+}
+
+header.ecofit-header .ecofit-nav-icon {
+  display: block;
+  width: 30px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 30px;
 }
 
 header.ecofit-header .ecofit-header-nav a::after {
@@ -141,6 +153,11 @@ header.ecofit-header .ecofit-header-actions {
   align-items: center !important;
   gap: 9px !important;
 }
+
+header.ecofit-header .eco-account-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;flex-shrink:0;min-width:40px;min-height:40px;color:#8c1237;text-decoration:none;font:600 11px/1.5 Be Vietnam Pro,Arial,sans-serif}
+header.ecofit-header .eco-account-link svg{width:22px;height:22px;flex-shrink:0}
+header.ecofit-header .eco-account-link:focus-visible{outline:2px solid #8c1237;outline-offset:3px}
+@media(max-width:1279px){header.ecofit-header .eco-account-link span{display:none}}
 
 header.ecofit-header .ecofit-desktop-search {
   width: 190px !important;
@@ -245,7 +262,9 @@ header.ecofit-header .ecofit-mobile-menu {
 }
 
 header.ecofit-header .ecofit-mobile-menu a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 15px 2px;
   border-bottom: 1px solid #f2eaea;
   color: #393237;
@@ -363,7 +382,7 @@ html {
   scroll-margin-top: 100px;
 }
 
-#root main > :not(#eco-home):not(#ecofit-stories):not(#shop-products),
+#root main > :not(#eco-home):not(#ecofit-stories):not(#shop-products):not(.eco-chapter-divider),
 #root [data-ecofit-legacy-nike="true"] {
   display: none !important;
 }
@@ -382,7 +401,7 @@ header.ecofit-header .ecofit-cart-button {
   visibility: visible;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1150px) {
   header.ecofit-header .ecofit-header-row {
     height: 72px !important;
     min-height: 72px !important;

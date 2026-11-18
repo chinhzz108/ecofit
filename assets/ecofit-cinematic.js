@@ -92,9 +92,19 @@ function integrateStories(stories,detailChapter){
   if(!inner||!feature||!collection)return null;
   stories.dataset.cinematicReady='true';
   const first=createChapter('stage','ecofit-white-in-motion','01 / ECOFIT WHITE EDITION','Trắng gạo. <em>Chất riêng.</em>','Cổ tim gọn, hai sọc hồng nhạt và sắc trắng gạo. Một thiết kế Ecofit cho những chuyển động mỗi ngày.');
+  const chapterBreak=(label,caption,opening=false)=>{
+    const divider=document.createElement('div');
+    divider.className='eco-chapter-divider'+(opening?' eco-chapter-divider--opening':'');
+    const line=document.createElement('div');line.className='eco-section-line';
+    for(const text of [label,caption]){const span=document.createElement('span');span.textContent=text;line.append(span);}
+    divider.append(line);return divider;
+  };
+  stories.before(chapterBreak('ECOFIT JOURNAL','GREEN SPORTSWEAR',true));
+  first.querySelector('.ecofit-cinematic-eyebrow')?.remove();
   const second=detailChapter;
   const third=createChapter('journal','ecofit-motion-journal','03 / THE ECOFIT JOURNAL','Chất riêng, <em>không giới hạn.</em>','Một tuyển tập hình ảnh về phong cách và cảm hứng thể thao Ecofit.');
   feature.before(first);
+  first.before(chapterBreak('01 / ECOFIT WHITE EDITION','WHITE IN MOTION'));
   const interlude=inner.querySelector('.ecofit-bamboo-interlude');
   const secondBamboo=inner.querySelector('.ecofit-bamboo-image--second');
   if(bamboo&&interlude&&secondBamboo){const note=document.createElement('div');note.className='ecofit-cinematic-note';note.append(interlude,secondBamboo);bamboo.after(note);}
