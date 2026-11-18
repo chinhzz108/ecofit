@@ -54,7 +54,7 @@
 .eco-fit-height-marker{position:absolute;z-index:1;left:8px;right:12px;bottom:var(--fit-floor);height:0;display:flex;align-items:center;gap:5px;transform:translateY(calc(-1 * var(--fit-ruler-height) * var(--fit-height-scale)));transition:transform .18s ease-out;pointer-events:none}
 .eco-fit-height-marker::after{content:'';flex:1;border-top:1px dashed #a6516a8c}
 .eco-fit-height-marker>span{padding:3px 5px;border-radius:3px;background:#8c1237;color:#fff;font-size:9px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
-.eco-fit-figure{position:absolute;z-index:2;left:55%;bottom:var(--fit-floor);display:block;width:calc(var(--fit-ruler-height) * .6);height:var(--fit-ruler-height);transform:translateX(-50%) scale(var(--fit-height-scale));transform-origin:center bottom;transition:transform .18s ease-out;pointer-events:none}
+.eco-fit-figure{position:absolute;z-index:2;left:55%;bottom:var(--fit-floor);display:block;width:calc(var(--fit-ruler-height) * .6);height:var(--fit-ruler-height);transform:translateX(-50%) scale(var(--fit-height-scale)) scale(var(--fit-custom-scale,1));transform-origin:center bottom;transition:transform .18s ease-out;pointer-events:none}
 .eco-fit-body{position:absolute;display:block;max-width:none;pointer-events:none}
 .eco-fit-stage-size{position:absolute;z-index:3;top:8px;right:9px;padding:4px 6px;border:1px solid #dec7c8;border-radius:4px;background:#fffaf3;color:#7b2340;font-size:10px;font-weight:650;pointer-events:none}
 .eco-fit-visual-caption{position:absolute;z-index:3;left:13px;bottom:12px;color:#795865;font-size:8px;font-weight:600;letter-spacing:.11em}

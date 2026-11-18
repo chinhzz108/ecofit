@@ -150,6 +150,7 @@ export function initializeFitPreview(product) {
       context.clearRect(0, 0, bodyImage.width, bodyImage.height);
       context.drawImage(frame.image, 0, 0, bodyImage.width, bodyImage.height);
       bodyImage.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;max-width:none;display:block;pointer-events:none;';
+      figure.style.setProperty('--fit-custom-scale', '1.65');
       visibleFrame = null;
       figure.setAttribute('aria-label', `Mẫu ${selectedGender === 'female' ? 'nữ' : 'nam'} mặc áo ${fitProduct}, cao ${selectedHeight} cm, nặng ${selectedWeight} kg`);
       angleCopy.textContent = `${String(currentFrame + 1).padStart(2, '0')} / 08 · ${currentFrame * 45}°`;
