@@ -30,13 +30,11 @@ function buildProduct(){
   const requestedId=new URLSearchParams(location.search).get('product')||'bamboo-prime';
   const catalogProduct=catalog.find(item=>item.id===requestedId&&!item.draft)||catalog[0];
   const isWhite=catalogProduct.id==='bamboo-prime';
-  const customModel=`/images/ecofit-fit-custom/${catalogProduct.id}-male-cd-00.webp`;
-  const customModelBack=`/images/ecofit-fit-custom/${catalogProduct.id}-male-cd-04.webp`;
   const views=isWhite?productViews:[
     {src:catalogProduct.image,label:'Tổng thể',alt:catalogProduct.alt,width:1199,height:1312},
-    {src:catalogProduct.image,label:'Chi tiết',alt:`Chi tiết ${catalogProduct.name}`,width:1199,height:1312},
-    {src:customModel,label:'Trước & sau',alt:`${catalogProduct.name} trên mẫu thử, mặt trước`,width:316,height:623},
-    {src:customModelBack,label:'Trên người',alt:`${catalogProduct.name} trên người mẫu, mặt sau`,width:316,height:623,caption:'PHOM ÁO TRONG CHUYỂN ĐỘNG'}
+    {src:`/images/${catalogProduct.id}-detail.webp`,label:'Chi tiết',alt:`Cận cảnh chi tiết ${catalogProduct.name}`,width:1536,height:1024},
+    {src:`/images/${catalogProduct.id}-front-back.webp`,label:'Trước & sau',alt:`Mặt trước và mặt sau ${catalogProduct.name}`,width:1774,height:887},
+    {src:`/images/${catalogProduct.id}-runner.webp`,label:'Trên người',alt:`Người mẫu mặc ${catalogProduct.name} trong chuyển động`,width:1536,height:1024,caption:'PHOM ÁO TRONG CHUYỂN ĐỘNG'}
   ];
   activeProductViews=views;
   const priceText=typeof catalogProduct.price==='number'?new Intl.NumberFormat('vi-VN').format(catalogProduct.price)+' VNĐ':'Giá sắp được cập nhật';
@@ -72,7 +70,7 @@ function buildProduct(){
         <p class="eco-product-subtitle">${subtitleText}</p>
         <p class="eco-product-price" aria-label="Giá sản phẩm"><span>${priceText}</span></p>
         <p class="eco-product-color"><span aria-hidden="true"></span>${catalogProduct.color.replace(' / ',' <i>/</i> ')}</p>
-        ${isWhite?`<button class="eco-fit-trigger" type="button" data-fit-open>
+        ${isWhite||catalogProduct.id==='polo-navy'||catalogProduct.id==='polo-stripe'?`<button class="eco-fit-trigger" type="button" data-fit-open>
           <span class="eco-fit-trigger-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="m8 4-5 3 3 4 2-1v10h8V10l2 1 3-4-5-3a4 4 0 0 1-8 0Z"/></svg></span>
           <span class="eco-fit-trigger-copy"><strong>Thử áo theo vóc dáng <span>360°</span></strong><small>Chọn mẫu nam/nữ, chiều cao, cân nặng và size</small></span>
           <span class="eco-fit-trigger-arrow" aria-hidden="true">↗</span>
