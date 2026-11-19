@@ -32,8 +32,8 @@ function buildProduct(){
   const isWhite=catalogProduct.id==='bamboo-prime';
   const views=isWhite?productViews:[
     {src:catalogProduct.image,label:'Tổng thể',alt:catalogProduct.alt,width:1199,height:1312},
-    {src:`/images/${catalogProduct.id}-detail.webp`,label:'Chi tiết',alt:`Cận cảnh chi tiết ${catalogProduct.name}`,width:1536,height:1024},
-    {src:`/images/${catalogProduct.id}-front-back.webp`,label:'Trước & sau',alt:`Mặt trước và mặt sau ${catalogProduct.name}`,width:1774,height:887},
+    {src:`/images/${catalogProduct.id}-detail.webp`,thumb:catalogProduct.image,label:'Chi tiết',alt:`Cận cảnh chi tiết ${catalogProduct.name}`,width:1536,height:1024},
+    {src:`/images/${catalogProduct.id}-front-back.webp`,thumb:`/images/${catalogProduct.id}-front-back-thumb.webp`,label:'Trước & sau',alt:`Mặt trước và mặt sau ${catalogProduct.name}`,width:1774,height:887},
     {src:`/images/${catalogProduct.id}-runner.webp`,label:'Trên người',alt:`Người mẫu mặc ${catalogProduct.name} trong chuyển động`,width:1536,height:1024,caption:'PHOM ÁO TRONG CHUYỂN ĐỘNG'}
   ];
   activeProductViews=views;
@@ -61,7 +61,7 @@ function buildProduct(){
           <span class="eco-photo-caption">MỘT CHIẾC ÁO. MỘT CHẤT RIÊNG.</span>
           <span class="eco-photo-view" aria-live="polite">01 / TỔNG THỂ</span>
         </div>
-        <div class="eco-product-views" role="group" aria-label="Góc nhìn sản phẩm">${views.map((view,i)=>`<button type="button" data-product-view="${i}" aria-pressed="${i===0}"><span class="eco-view-preview"><img src="${view.src}" alt="" loading="lazy" decoding="async"></span><span>${view.label}</span><span class="eco-view-index">0${i+1}</span></button>`).join('')}</div>
+        <div class="eco-product-views" role="group" aria-label="Góc nhìn sản phẩm">${views.map((view,i)=>`<button type="button" data-product-view="${i}" aria-pressed="${i===0}"><span class="eco-view-preview"><img src="${view.thumb||view.src}" alt="" loading="lazy" decoding="async"></span><span>${view.label}</span><span class="eco-view-index">0${i+1}</span></button>`).join('')}</div>
       </div>
       <div class="eco-product-info">
         <p class="eco-eyebrow">ECOFIT / ${materialText.toUpperCase()}</p>
