@@ -112,6 +112,7 @@ export function initializeFitPreview(product) {
   const stage = dialog.querySelector('[data-fit-stage]');
   const stageSize = dialog.querySelector('[data-fit-stage-size]');
   const figure = dialog.querySelector('[data-fit-figure]');
+  figure.classList.toggle('is-custom', customFit);
   const paintGarment = createGarmentPreview(bodyImage);
   const selectedCopy = dialog.querySelector('[data-fit-selected]');
   const profileCard = dialog.querySelector('[data-fit-profile]');
@@ -151,7 +152,6 @@ export function initializeFitPreview(product) {
       context.drawImage(frame.image, 0, 0, bodyImage.width, bodyImage.height);
       bodyImage.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;max-width:none;display:block;pointer-events:none;';
       figure.style.setProperty('--fit-custom-scale', '1');
-      figure.style.width = 'calc(var(--fit-ruler-height) * .5072)';
       visibleFrame = null;
       figure.setAttribute('aria-label', `Mẫu ${selectedGender === 'female' ? 'nữ' : 'nam'} mặc áo ${fitProduct}, cao ${selectedHeight} cm, nặng ${selectedWeight} kg`);
       angleCopy.textContent = `${String(currentFrame + 1).padStart(2, '0')} / 08 · ${currentFrame * 45}°`;
