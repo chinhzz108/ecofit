@@ -140,6 +140,38 @@ export function initializeFitPreview(product) {
     return `/images/${folder}/ecofit-fit-${activeProfile.id}-${String(frame).padStart(2, '0')}.webp`;
   }
 
+  function paintCustomFrame(image, difference) {
+    const context = bodyImage.getContext('2d');
+    const width = bodyImage.width;
+    const height = bodyImage.height;
+    context.clearRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+    if (!difference) return;
+
+    const center = width * .5;
+    const left = width * .25;
+    const right = width * .75;
+    const top = height * .2;
+    const bottom = height * .49;
+    const sourceWidth = right - left;
+    const sourceHeight = bottom - top;
+    const scale = difference < 0 ? .91 : 1.09;
+    const targetWidth = sourceWidth * scale;
+    const targetLeft = center - targetWidth * .5;
+    const garmentLayer = document.createElement('canvas');
+    garmentLayer.width = width;
+    garmentLayer.height = height;
+    const garmentContext = garmentLayer.getContext('2d');
+    garmentContext.drawImage(image, left, top, sourceWidth, sourceHeight, targetLeft, top, targetWidth, sourceHeight);
+    context.save();
+    context.beginPath();
+    context.rect(left - 2, top, sourceWidth + 4, sourceHeight);
+    context.clip();
+    context.clearRect(left - 2, top, sourceWidth + 4, sourceHeight);
+    context.drawImage(garmentLayer, 0, 0);
+    context.restore();
+  }
+
   async function renderFrame(nextFrame) {
     currentFrame = ((nextFrame % 8) + 8) % 8;
     if (customFit) {
@@ -147,9 +179,7 @@ export function initializeFitPreview(product) {
       const frame = loadFrame(sourceFor(currentFrame));
       const ready = await frame.ready;
       if (request !== requestedFrame || !dialog.open || !ready) return;
-      const context = bodyImage.getContext('2d');
-      context.clearRect(0, 0, bodyImage.width, bodyImage.height);
-      context.drawImage(frame.image, 0, 0, bodyImage.width, bodyImage.height);
+      paintCustomFrame(frame.image, fitDifference);
       bodyImage.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;max-width:none;display:block;pointer-events:none;';
       figure.style.setProperty('--fit-custom-scale', '1');
       visibleFrame = null;
@@ -206,7 +236,8 @@ export function initializeFitPreview(product) {
     const selectedFit = fitDifference < 0 ? 'ôm hơn, có thể chật' : fitDifference > 0 ? 'rộng hơn' : 'vừa dự kiến';
     const fitLabel = fitDifference < 0 ? 'Ôm hơn' : fitDifference > 0 ? 'Rộng hơn' : 'Vừa dự kiến';
     stageSize.textContent = `Size ${selectedSize} · ${fitLabel}`;
-    if (visibleFrame) paintGarment(visibleFrame.image, visibleFrame.pose, fitDifference);
+    if (customFit) renderFrame(currentFrame);
+    else if (visibleFrame) paintGarment(visibleFrame.image, visibleFrame.pose, fitDifference);
     dialog.querySelector('[data-fit-size-result]').textContent = `Với ${selectedHeight} cm / ${selectedWeight} kg: size ${selectedSize} ${selectedFit}. Gợi ý tham khảo: ${recommendedSize}, ước tính theo BMI; Ecofit chưa có bảng size chính thức.`;
   }
 
