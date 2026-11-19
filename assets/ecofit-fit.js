@@ -134,7 +134,7 @@ export function initializeFitPreview(product) {
   weightSelect.value = String(selectedWeight);
 
   function sourceFor(frame) {
-    if (customFit) return `/images/ecofit-fit-custom/${fitProduct}-${selectedGender}-${activeProfile.id}-${String(frame).padStart(2, '0')}.webp`;
+    if (customFit) return `/images/ecofit-fit-transparent/${fitProduct}-${selectedGender}-${activeProfile.id}-${String(frame).padStart(2, '0')}.webp`;
     const folder = selectedGender === 'female' ? 'ecofit-tryon-female-v1' : 'ecofit-tryon-v5';
     return `/images/${folder}/ecofit-fit-${activeProfile.id}-${String(frame).padStart(2, '0')}.webp`;
   }
@@ -150,7 +150,8 @@ export function initializeFitPreview(product) {
       context.clearRect(0, 0, bodyImage.width, bodyImage.height);
       context.drawImage(frame.image, 0, 0, bodyImage.width, bodyImage.height);
       bodyImage.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;max-width:none;display:block;pointer-events:none;';
-      figure.style.setProperty('--fit-custom-scale', '1.65');
+      figure.style.setProperty('--fit-custom-scale', '1');
+      figure.style.width = 'calc(var(--fit-ruler-height) * .5072)';
       visibleFrame = null;
       figure.setAttribute('aria-label', `Mẫu ${selectedGender === 'female' ? 'nữ' : 'nam'} mặc áo ${fitProduct}, cao ${selectedHeight} cm, nặng ${selectedWeight} kg`);
       angleCopy.textContent = `${String(currentFrame + 1).padStart(2, '0')} / 08 · ${currentFrame * 45}°`;
@@ -201,7 +202,7 @@ export function initializeFitPreview(product) {
       button.classList.toggle('is-recommended', size === recommendedSize);
     });
     fitDifference = garmentSizes.indexOf(selectedSize) - recommendedIndex;
-    figure.style.setProperty('--fit-garment-scale', customFit ? String(1 + fitDifference * .05) : '1');
+    figure.style.setProperty('--fit-garment-scale', '1');
     const selectedFit = fitDifference < 0 ? 'ôm hơn, có thể chật' : fitDifference > 0 ? 'rộng hơn' : 'vừa dự kiến';
     const fitLabel = fitDifference < 0 ? 'Ôm hơn' : fitDifference > 0 ? 'Rộng hơn' : 'Vừa dự kiến';
     stageSize.textContent = `Size ${selectedSize} · ${fitLabel}`;

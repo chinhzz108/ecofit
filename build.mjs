@@ -40,4 +40,5 @@ await cp('images/ecofit-tryon-v2', 'dist/images/ecofit-tryon-v2', { recursive: t
 await cp('images/ecofit-tryon-v5', 'dist/images/ecofit-tryon-v5', { recursive: true });
 await cp('images/ecofit-tryon-female-v1', 'dist/images/ecofit-tryon-female-v1', { recursive: true });
 await cp('images/ecofit-fit-custom', 'dist/images/ecofit-fit-custom', { recursive: true });
+await cp('images/ecofit-fit-transparent', 'dist/images/ecofit-fit-transparent', { recursive: true });
 await cp('images/game', 'dist/images/game', { recursive: true });
